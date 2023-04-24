@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+    Заявка - {{task.id}}
+{% endblock %}
+
+{% block content %}
+    
+    <div>
+        <div>Текст заявки: {{task.text}}</div>
+        <div>Время обращения: {{task.time_date}}</div>
+        <div>IP адрес: {{task.pc_ip}}</div>
+        <div>Имя компьютера: {{task.pc_name}}</div>
+        <div>Пользователь: {{task.fio}}</div>
+        <div>Телефон: {{task.phone}}</div>
+        <div>Отдел: {{task.dep}}</div>
+        <div>Комментарий тех. поддержки: {{task.comment}}</div>
+
+        <div>
+            <form action="{% url 'app_desk:status_update' %}" method="POST">
+                {% csrf_token %}
+                <button name="task_id" value="{{task.id}}">
+                    {% if task.status %}
+                        В работе!
+                    {% else %}
+                        Готово!
+                    {% endif %} 
+
+                </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

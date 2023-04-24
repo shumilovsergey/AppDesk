@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}
+    Список заявок
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <form action="{% url 'admin:login' %}" method="GET">
+            <button>Admin</button>
+        </form>    
+    </div>
+
+    <div>
+        <form action="{% url 'app_desk:task_add' %}" method="POST">
+            {% csrf_token %}
+            <div>
+                <textarea name="text" required="" placeholder="Введите текст заявки" cols="30" rows="10"></textarea>
+            </div>
+            <div>
+                <button type="submit">Создать заявку!</button>
+            </div>
+        </form>
+    </div>
+    <div>_______________________________</div>
+
+    <div>
+        <form action="{% url 'app_desk:task_list' %}" method="POST">
+            {% csrf_token %}
+            <div>
+                <button name="in_progres" value="1">Заявки</button>
+            </div>
+            <div>
+                <button name="done" value="2">Выполненные</button>
+            </div>
+        </form>
+    </div>
+    <div>_______________________________</div>
+
+    {% if tasklist %}
+        {% for task in tasklist %}
+            <a href="{% url 'app_desk:task_detail' task.id %}">   
+                <div>{{task.title}}</div>
+                <div>{{task.time_date}}</div>
+
+                {% if task.status %}
+                    <div>Выполнено!</div>
+                {% else %}
+                    <div>В работе!</div>
+                {% endif %}
+                
+                <div>{{task.fio}}</div>
+                <div>_______________________________</div>
+            </a>   
+        {% endfor %}
+    {% else %}
+        <div>Заявок нет!</div>
+    {% endif %}
+
+{% endblock %}
+
+
