@@ -2,6 +2,20 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render
 from .models import User, Task
 from django.urls import reverse
+from dotenv import load_dotenv
+import os
+import telebot
+from telebot import types
+
+
+load_dotenv()
+TG_TOKEN = os.getenv("TG_TOKEN")
+GROUP_ID = os.getenv("GROUP_ID")
+
+
+bot = telebot.TeleBot(TG_TOKEN)
+
+
 
 def task_list(request):
     call_back=[]
@@ -45,9 +59,16 @@ def task_add(request):
         phone = user.phone
         dep = user.dep
         Task.objects.create(title=title, text=text, pc_ip=pc_ip, pc_name=pc_name, fio=fio, phone=phone,dep=dep)
+        tg_message = f"{fio} \n\n{text}\n\n{pc_name}\n{phone}"
     else:
         Task.objects.create(title=title, text=text, pc_ip=pc_ip)
+        tg_message = f"Пользователя нет в базе \n\n{text}\n\n{pc_ip}"
 
+    try:
+        bot.send_message(chat_id=GROUP_ID, text=tg_message)
+    except:
+        print('lost connection with TELEGRAMM')
+    
     return HttpResponseRedirect(reverse('app_desk:task_list'))
 
 def status_update(request):

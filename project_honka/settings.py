@@ -1,6 +1,8 @@
 from pathlib import Path
 import os, sys
 
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
