@@ -5,58 +5,76 @@
 
 {% block content %}
 
-    <div>
-        <form action="{% url 'admin:login' %}" method="GET">
-            <button>Admin</button>
-        </form>    
-    </div>
 
-    <div>
-        <form action="{% url 'app_desk:task_add' %}" method="POST">
-            {% csrf_token %}
-            <div>
-                <textarea name="text" required="" placeholder="Введите текст заявки" cols="30" rows="10"></textarea>
-            </div>
-            <div>
-                <button type="submit">Создать заявку!</button>
-            </div>
-        </form>
-    </div>
-    <div>_______________________________</div>
 
-    <div>
-        <form action="{% url 'app_desk:task_list' %}" method="POST">
-            {% csrf_token %}
-            <div>
-                <button name="in_progres" value="1">Заявки</button>
-            </div>
-            <div>
-                <button name="done" value="2">Выполненные</button>
-            </div>
-        </form>
-    </div>
-    <div>_______________________________</div>
 
-    {% if tasklist %}
-        {% for task in tasklist %}
-            <a href="{% url 'app_desk:task_detail' task.id %}">   
-                <div>{{task.title}}</div>
-                <div>{{task.time_date}}</div>
 
-                {% if task.status %}
-                    <div>Выполнено!</div>
+    <div class="container">
+        <div class="input">
+            <form action="{% url 'app_desk:task_add' %}" method="POST">
+                {% csrf_token %}
+                    <div>
+                        <textarea name="text" required="" placeholder="Введите текст заявки" cols="40" rows="8"></textarea>
+                    </div>
+                    <div class="button-create">
+                        <button type="submit">Создать заявку!</button>
+                    </div>
+            </form>
+        </div>
+
+        <div class="output">
+            <div class="navigation">
+                <div>
+                    <form action="{% url 'app_desk:task_list' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="navigation-buttons">
+                            <div>
+                                <button name="in_progres" value="1">Заявки</button>
+                            </div>
+                            <div>
+                                <button class="button-done" name="done" value="2">Выполненные</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="admin">
+                    <form action="{% url 'admin:login' %}" method="GET">
+                        <button class="admin-button">Admin</button>
+                    </form>    
+                </div>
+            </div>
+
+            <div class="task-list">
+                {% if tasklist %}
+                    {% for task in tasklist %}
+                        {% if task.status %}
+                            <div class="task-done">
+                                <a href="{% url 'app_desk:task_detail' task.id %}">   
+                                    <div class="task-text">{{task.fio}}</div>
+                                    <div class="task-text">{{task.title}}</div>
+                                    <div class="task-text">Выполнено!</div>
+                                    <div class="task-text">{{task.time_date}}</div>
+                                </a>   
+                            </div>
+                        {% else %}
+                            <div class="task">
+                                <a href="{% url 'app_desk:task_detail' task.id %}">   
+                                    <div class="task-text">{{task.fio}}</div>
+                                    <div class="task-text">{{task.title}}</div>
+                                    <div class="task-text">В работе!</div>
+                                    <div class="task-text">{{task.time_date}}</div>
+                                </a>   
+                            </div>
+                        {% endif %}
+
+                    {% endfor %}
                 {% else %}
-                    <div>В работе!</div>
+                    <div>Заявок нет!</div>
                 {% endif %}
-                
-                <div>{{task.fio}}</div>
-                <div>_______________________________</div>
-            </a>   
-        {% endfor %}
-    {% else %}
-        <div>Заявок нет!</div>
-    {% endif %}
-
+            </div>  
+        </div>
+    </div>
 {% endblock %}
 
 

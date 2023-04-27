@@ -7,3 +7,6 @@ words = s.split()
 first_five_words = ' '.join(words[:5])
 
 print(first_five_words)  # Output: "This is a sample string"
+
+
+

@@ -1,5 +1,92 @@
-body {
-    background-color: #e19292;
-    color: #333;
-  }
+
+body{
+  background-color: rgb(161, 160, 205);
+
+}
+
+
+.container{
+  width: 725px;
+  margin-left: 30px;
+  margin-top: 20px;
   
+}
+
+.output{
+  float: left;
+  width: 350px;
+  
+
+}
+
+.navigation{
+
+  display: flex;
+  margin-left: 5px;
+  margin-right: 5px;
+
+}
+
+.navigation-buttons{
+  display: flex;
+}
+
+.admin{
+ float: right;
+ 
+}
+.admin-button{
+  float: right;
+}
+.button-done{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.task{
+  margin: 5px;
+  background-color: bisque;
+  padding: 5px;
+}
+.task:hover{
+  background-color: rgb(240, 206, 165);
+}
+
+.task-done{
+  margin: 5px;
+  background-color: rgb(163, 242, 164);
+  padding: 5px;
+}
+.task-done:hover{
+  background-color: rgb(141, 225, 137);
+}
+
+.task-text{
+  padding: 4px;
+}
+
+
+
+
+
+.input{
+  float: right;
+
+}
+
+textarea{
+  padding: 10px;
+  background-color: rgb(236, 236, 236);
+}
+
+button{
+  padding: 5px;
+
+}
+
+
+a {
+  color:#000;
+  text-decoration: none;
+  margin: 8px 0;
+}
