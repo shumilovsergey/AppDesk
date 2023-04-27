@@ -4,30 +4,61 @@
 {% endblock %}
 
 {% block content %}
-    
-    <div>
-        <div>Текст заявки: {{task.text}}</div>
-        <div>Время обращения: {{task.time_date}}</div>
-        <div>IP адрес: {{task.pc_ip}}</div>
-        <div>Имя компьютера: {{task.pc_name}}</div>
-        <div>Пользователь: {{task.fio}}</div>
-        <div>Телефон: {{task.phone}}</div>
-        <div>Отдел: {{task.dep}}</div>
-        <div>Комментарий тех. поддержки: {{task.comment}}</div>
+    <div class="detail-container">
+        {% if task.status %}
+        <div class="detail-task-done">
+        {% else %}
+        <div class="detail-task">
+        {% endif %}
 
-        <div>
-            <form action="{% url 'app_desk:status_update' %}" method="POST">
-                {% csrf_token %}
-                <button name="task_id" value="{{task.id}}">
+            <div class="detail-left">
+                <div class="detail-left-main">
+                    <div class="task-text">Пользователь: {{task.fio}}</div>
+                    <div class="task-text">Имя компьютера: {{task.pc_name}}</div>
+                    <div class="task-text">IP адрес: {{task.pc_ip}}</div>
+                </div>
+                <div class="detail-left-meta">
+                    <div class="task-text">Телефон: {{task.phone}}</div>
+                    <div class="task-text">Отдел: {{task.dep}}</div>
+                    <div class="task-text">Время обращения: {{task.time_date}}</div>
                     {% if task.status %}
-                        В работе!
+                        <div class="task-text">Статус: Выполнено!</div>                        
                     {% else %}
-                        Готово!
-                    {% endif %} 
+                    <div class="task-text">Статус: В работе!</div>                       
+                    {% endif %}
+                </div>
+            </div>
+            <div class="detail-right">
+                <div class="detail-right-text">
+                    <div class="task-text">Текст заявки: {{task.text}}</div>
+                </div>
+            </div>    
+        </div>
+        
+        <div class="detail-navigation">
+            {% if task.status %}   
+                <div class="detail-button-back">
+                    <form action="{% url 'app_desk:task_list' %}" method="POST">
+                        {% csrf_token %}
+                        <button name="done" value="2"> Вернуться к списку</button>
+                    </form>
+                </div>
 
-                </button>
-            </form>
+            {% else %}
+                <div class="detail-button-back">
+                    <form action="{% url 'app_desk:task_list' %}" method="GET">
+                        <button name="done" value="2"> Вернуться к списку</button>
+                    </form>
+                </div>
+
+                <div class="detail-button-done">
+                    <form action="{% url 'app_desk:status_update' %}" method="POST">
+                        {% csrf_token %}
+                        <button name="task_id" value="{{task.id}}">Закрыть заявку</button>
+                    </form>
+                </div>
+
+            {% endif %} 
         </div>
     </div>
-
 {% endblock %}
