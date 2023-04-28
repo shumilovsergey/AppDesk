@@ -1,5 +1,10 @@
 from django.db import models
 from django.utils import timezone
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.urls import reverse
+from .const import TG_TOKEN, GROUP_ID
+import requests
 
 
 
@@ -40,3 +45,27 @@ class User(models.Model):
 
 
 
+@receiver(post_save, sender=Task)
+def new_task_pushup(sender, instance, created, **kwargs):
+    if created:
+        text = instance.text
+        pc_ip = instance.pc_ip
+        pc_name = instance.pc_name
+        phone = instance.phone
+        fio = instance.fio
+
+        if fio == '???':
+            tg_message = f"Пользователя нет в базе \n\n{text}\n\n{pc_ip}"
+        else:
+            tg_message = f"{fio} \n\n{text}\n\n{pc_name}\n{phone}"
+
+        try:
+            requests.post(f"https://api.telegram.org/bot{TG_TOKEN}/sendMessage", data={
+                "chat_id": GROUP_ID,
+                "text": tg_message
+            })
+        except:
+            print('lost connection with TELEGRAMM')   
+
+        return
+        
