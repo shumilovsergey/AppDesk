@@ -1,17 +1,19 @@
 from pathlib import Path
 import os, sys
-
+from project_honka.const import ALLOWED_HOST
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 PROJECT_ROOT = os.path.dirname(__file__)
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
+sys.path.append(os.path.join(BASE_DIR, "project_honka"))
+
 
 SECRET_KEY = 'django-insecure--f@9es@9eg^&r83xpq=pun4%rh_suk!c3px)6pe#t&1(+a)ty5'
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.10.138', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOST = ALLOWED_HOST
 
 INSTALLED_APPS = [
     'app_desk.apps.AppDeskConfig',
@@ -58,7 +60,7 @@ WSGI_APPLICATION = 'project_honka.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'data/db.sqlite3',
     }
 }
 

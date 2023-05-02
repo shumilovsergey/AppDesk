@@ -3,9 +3,8 @@ from django.utils import timezone
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.urls import reverse
-from .const import TG_TOKEN, GROUP_ID
 import requests
-
+from project_honka.const import TG_TOKEN, GROUP_ID
 
 
 class Task(models.Model):
