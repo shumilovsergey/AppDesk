@@ -1,11 +1,17 @@
 name: Build and publish a Docker image to ghcr.io
+# on:
+#   release:
+#     types: [created, published]
+#   workflow_dispatch:
+#     inputs:
+#       comment:
+#         description: "Comments"
+
 on:
-  release:
-    types: [created, published]
-  workflow_dispatch:
-    inputs:
-      comment:
-        description: "Comments"
+  push:
+    branches:
+      - main
+
 
 jobs:
   docker_publish:
