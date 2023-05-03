@@ -26,7 +26,7 @@ RUN if [ "$ENV_FILE" ]; then cp "$ENV_FILE" .env; fi
 ENV PORT=5002
 
 # Define volume for database
-VOLUME /app/data
+VOLUME django-bd:/app/data
 
 # Start server
 CMD python manage.py runserver 0.0.0.0:${PORT}
