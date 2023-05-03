@@ -2,10 +2,10 @@
 FROM python:3.9
 
 # Set environment variables
-ENV PYTHONUNBUFFERED=1 \
-    TG_TOKEN="" \
-    GROUP_ID="" \
-    ALLOWED_HOST=""
+ENV PYTHONUNBUFFERED=1 
+    # TG_TOKEN="" \
+    # GROUP_ID="" \
+    # ALLOWED_HOST=""
 # Set working directory
 WORKDIR /app
 
