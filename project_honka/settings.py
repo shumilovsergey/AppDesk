@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure--f@9es@9eg^&r83xpq=pun4%rh_suk!c3px)6pe#t&1(+a)ty5
 
 DEBUG = True
 
-ALLOWED_HOST = ALLOWED_HOST
+ALLOWED_HOST = ["*"]
 
 INSTALLED_APPS = [
     'app_desk.apps.AppDeskConfig',
