@@ -32,7 +32,11 @@ def task_add(request):
     text = request.POST['text']
     words = text.split()
     title = (' '.join(words[:5]))
-    pc_ip = request.META.get('REMOTE_ADDR')
+
+    pc_ip = request.META.get('HTTP_X_FORWARDED_FOR') or request.META.get('REMOTE_ADDR')
+    pc_ip = pc_ip.split(',')[0] if ',' in pc_ip else pc_ip
+
+
 
     try:
         user = User.objects.get(pc_ip = pc_ip)
